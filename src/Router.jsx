@@ -9,13 +9,13 @@ function MyRouter() {
       <div className="App">
         <Header />
         <Switch>
-          <Route path="/home">
+          <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/Funzone">
+          <Route exact path="/funzone">
             <Funzone />
           </Route>
-          <Route path="/testimonials">
+          <Route exact path="/testimonials">
             <Testimonials />
           </Route>
         </Switch>
