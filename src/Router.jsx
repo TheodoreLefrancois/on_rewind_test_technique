@@ -14,10 +14,10 @@ import { setContext } from "@apollo/client/link/context";
 function MyRouter() {
   const { KEY, ENDPOINT } = process.env;
   const httpLink = createHttpLink({
-    uri: "https://staging-graphql-service.onrewind.tv/graphql",
+    uri: ENDPOINT,
   });
   const authLink = setContext((_, { headers }) => {
-    const token = "SyT0uHf3I";
+    const token = KEY;
     return {
       headers: {
         ...headers,
