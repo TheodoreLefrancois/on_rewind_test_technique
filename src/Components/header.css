@@ -1,5 +1,15 @@
-header-design {
+.header-container {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-s;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  list-style: none;
+}
+.header-items {
+  margin-right: 10%;
+  list-style-type: square;
+  list-style: none;
+}
+.header-items:hover {
+  font-style: italic;
 }
