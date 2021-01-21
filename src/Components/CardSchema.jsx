@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Typography from "@material-ui/core/Typography";
+import imageDefault from "../assets/images/imageDefault.jpeg";
 
 const useStyles = makeStyles({
   root: {
@@ -35,7 +36,7 @@ export default function CardSchema({ poster, name, Tags, id }) {
               className={classes.media}
               width="100%"
               height="100%"
-              image={poster}
+              image={poster ? poster : imageDefault}
               title={name}
             />
           </Link>
