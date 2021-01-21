@@ -1,9 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import Card from "./Card";
-export default function Home() {
+export default function Testimoniales() {
   const { loading, error, data } = useQuery(gql`
     query {
-      allVideos(limit: 5) {
+      allVideos(limit: 5, tags: "Testimoniales") {
         items {
           id
           poster

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import Header from "./Components/Header";
 import Funzone from "./Components/Funzone";
-import Testimonials from "./Components/Testimonials";
+import Testimonials from "./Components/Testimoniales";
 import {
   ApolloProvider,
   ApolloClient,
@@ -10,14 +10,14 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import DetailPage from "./Components/DetailPage";
 
 function MyRouter() {
-  const { KEY, ENDPOINT } = process.env;
   const httpLink = createHttpLink({
-    uri: ENDPOINT,
+    uri: process.env.REACT_APP_ENDPOINT,
   });
   const authLink = setContext((_, { headers }) => {
-    const token = KEY;
+    const token = process.env.REACT_APP_KEY;
     return {
       headers: {
         ...headers,
@@ -30,10 +30,6 @@ function MyRouter() {
     cache: new InMemoryCache(),
   });
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log(ENDPOINT, KEY);
-  };
   return (
     <Router>
       <ApolloProvider client={client}>
@@ -46,13 +42,13 @@ function MyRouter() {
             <Route exact path="/funzone">
               <Funzone />
             </Route>
-            <Route exact path="/testimonials">
+            <Route exact path="/testimoniales">
               <Testimonials />
             </Route>
+            <Route exact path="/video/:goodId">
+              <DetailPage />
+            </Route>
           </Switch>
-          <button onClick={handleClick}>
-            Click here to see the datas in the .env file
-          </button>
         </div>
       </ApolloProvider>
     </Router>

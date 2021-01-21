@@ -1,12 +1,12 @@
-/* eslint-disable array-callback-return */
 import { gql, useQuery } from "@apollo/client";
-
+import Card from "./Card";
 export default function Funzone() {
   const { loading, error, data } = useQuery(gql`
     query {
       allVideos(limit: 5, tags: "Funzone") {
         items {
-          url
+          id
+          poster
           name
           Tags {
             name
@@ -16,22 +16,25 @@ export default function Funzone() {
     }
   `);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-  if (error) {
-    console.log(error);
-    return <p>Error :(</p>;
-  } else {
-    return (
-      <>
-        {data.allVideos.items.map((x) => {
-          <div>
-            <p>{x.name}</p>
-            <p>{x.url}</p>
-          </div>;
-        })}
-      </>
-    );
-  }
+  return (
+    <>
+      {loading ? (
+        <p>Loading...</p>
+      ) : data ? (
+        data.allVideos.items.map((x) => {
+          return (
+            <Card
+              name={x.name}
+              poster={x.poster}
+              Tags={x.Tags}
+              id={x.id}
+              key={x.id}
+            />
+          );
+        })
+      ) : (
+        <p>Error :( {error.stringify}</p>
+      )}
+    </>
+  );
 }
