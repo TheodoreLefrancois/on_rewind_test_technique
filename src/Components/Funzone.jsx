@@ -1,6 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
-import Card from "./Card";
+import CardSchema from "./CardSchema";
+import Grid from "@material-ui/core/Grid";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 export default function Funzone() {
+  const matches = useMediaQuery("(min-width:900px)");
   const { loading, error, data } = useQuery(gql`
     query {
       allVideos(limit: 5, tags: "Funzone") {
@@ -17,13 +20,14 @@ export default function Funzone() {
   `);
 
   return (
-    <>
+    <Grid container spacing={matches ? 3 : 4} justify="center">
       {loading ? (
         <p>Loading...</p>
       ) : data ? (
+        // mobile
         data.allVideos.items.map((x) => {
           return (
-            <Card
+            <CardSchema
               name={x.name}
               poster={x.poster}
               Tags={x.Tags}
@@ -35,6 +39,6 @@ export default function Funzone() {
       ) : (
         <p>Error :( {error.stringify}</p>
       )}
-    </>
+    </Grid>
   );
 }
