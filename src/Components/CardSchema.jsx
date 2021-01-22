@@ -7,6 +7,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Typography from "@material-ui/core/Typography";
+import List from "@material-ui/core/List";
+import ListItemText from "@material-ui/core/ListItemText";
+import imageDefault from "../assets/images/imageDefault.jpeg";
 
 const useStyles = makeStyles({
   root: {
@@ -19,6 +22,18 @@ const useStyles = makeStyles({
   },
   littleMediaRoot: {
     maxWidth: 750,
+  },
+  tagsRow: {
+    display: "flex",
+    color: "blue",
+  },
+  tagsItem: {
+    fontFamily: "Georgia",
+    fontWeight: "bold",
+  },
+  name: {
+    diplay: "flex",
+    jusfifyContent: "center",
   },
 });
 export default function CardSchema({ poster, name, Tags, id }) {
@@ -35,17 +50,19 @@ export default function CardSchema({ poster, name, Tags, id }) {
               className={classes.media}
               width="100%"
               height="100%"
-              image={poster}
+              image={poster ? poster : imageDefault}
               title={name}
             />
           </Link>
           <CardContent>
-            <Typography>{name}</Typography>
-            <Typography>
+            <Typography className={classes.name}>{name}</Typography>
+            <List className={classes.tagsRow}>
               {Tags.map((y) => (
-                <p>{y.name}</p>
+                <ListItemText className={classes.tagsItem}>
+                  # {y.name.toUpperCase()}
+                </ListItemText>
               ))}
-            </Typography>
+            </List>
           </CardContent>
         </CardActionArea>
       </Card>
