@@ -20,7 +20,7 @@ export default function Funzone() {
   `);
 
   return (
-    <Grid container spacing={matches ? 3 : 4} justify="center">
+    <Grid container spacing={matches ? 2 : 4} justify="center">
       {loading ? (
         <p>Loading...</p>
       ) : data ? (

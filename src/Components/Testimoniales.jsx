@@ -20,7 +20,7 @@ export default function Testimoniales() {
   `);
 
   return (
-    <Grid container spacing={matches ? 3 : 4} justify="center">
+    <Grid container spacing={matches ? 1 : 4} justify="center">
       {loading ? (
         <p>Loading...</p>
       ) : data ? (
