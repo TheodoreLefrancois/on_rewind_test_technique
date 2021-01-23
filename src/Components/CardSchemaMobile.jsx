@@ -11,13 +11,11 @@ import ListItemText from "@material-ui/core/ListItemText";
 import imageDefault from "../assets/images/imageDefault.jpeg";
 
 const useStyles = makeStyles({
-  root: {
-    marginTop: "5%",
-    maxWidth: 1000,
-    maxHeight: 400,
-  },
   media: {
     height: 300,
+  },
+  littleMediaRoot: {
+    maxWidth: 750,
   },
   tagsRow: {
     display: "flex",
@@ -32,12 +30,12 @@ const useStyles = makeStyles({
     jusfifyContent: "center",
   },
 });
-export default function CardSchema({ poster, name, Tags, id }) {
+export default function CardSchemaMobile({ poster, name, Tags, id }) {
   const classes = useStyles();
   const goodId = id;
   return (
-    <Grid item xs={4}>
-      <Card className={classes.root}>
+    <Grid item xs={11}>
+      <Card className={classes.littleMediaRoot}>
         <CardActionArea>
           <Link to={`/video/${goodId}`}>
             <CardMedia

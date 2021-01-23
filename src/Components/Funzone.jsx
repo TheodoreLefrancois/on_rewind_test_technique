@@ -37,7 +37,7 @@ export default function Funzone() {
           );
         })
       ) : (
-        <p>Error :( {error.stringify}</p>
+        <p>Error :( {error.message}</p>
       )}
     </Grid>
   );
