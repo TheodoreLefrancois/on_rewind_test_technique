@@ -4,7 +4,6 @@ import { useContext } from "react";
 import Responsivity from "./Responsivity";
 const Home = () => {
   const { after, before } = useContext(PaginationContext);
-
   const { loading, data, error } = useQuery(gql`
     query {
       allVideos(limit: 5, before: "${before}", after:"${after}") {
