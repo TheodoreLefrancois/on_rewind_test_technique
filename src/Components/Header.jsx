@@ -18,6 +18,7 @@ const useStyles = makeStyles({
 });
 export default function Header() {
   const classes = useStyles();
+
   return (
     <Typography className={classes.container}>
       <Link className={classes.items} href="/">

@@ -31,11 +31,22 @@ function MyRouter() {
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
-  const [pagination, setPagination] = useState(0);
+  const [after, setAfter] = useState("");
+  const [before, setBefore] = useState("");
+  const [datas, setDatas] = useState({});
 
   return (
     <Router>
-      <PaginationContext.Provider value={{ pagination, setPagination }}>
+      <PaginationContext.Provider
+        value={{
+          after,
+          setAfter,
+          before,
+          setBefore,
+          datas,
+          setDatas,
+        }}
+      >
         <ApolloProvider client={client}>
           <div>
             <Header />
