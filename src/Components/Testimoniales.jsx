@@ -1,12 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
-import CardSchema from "./CardSchema";
-import Grid from "@material-ui/core/Grid";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useContext } from "react";
+import PaginationContext from "../PaginationContext";
+import Responsivity from "./Responsivity";
 export default function Testimoniales() {
-  const matches = useMediaQuery("(min-width:900px)");
-  const { loading, error, data } = useQuery(gql`
+  const { after, before } = useContext(PaginationContext);
+  const { loading, data, error } = useQuery(gql`
     query {
-      allVideos(limit: 5, tags: "Testimoniales") {
+      allVideos(limit: 5, tags:"Testimoniales", before: "${before}", after:"${after}") {
         items {
           id
           poster
@@ -15,30 +15,23 @@ export default function Testimoniales() {
             name
           }
         }
+        cursor {
+          before
+          after
+        }
       }
     }
   `);
 
   return (
-    <Grid container spacing={matches ? 1 : 4} justify="center">
+    <>
       {loading ? (
         <p>Loading...</p>
       ) : data ? (
-        // mobile
-        data.allVideos.items.map((x) => {
-          return (
-            <CardSchema
-              name={x.name}
-              poster={x.poster}
-              Tags={x.Tags}
-              id={x.id}
-              key={x.id}
-            />
-          );
-        })
+        <Responsivity items={{ ...data }} />
       ) : (
         <p>Error :( {error.message}</p>
       )}
-    </Grid>
+    </>
   );
 }
