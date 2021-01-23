@@ -28,7 +28,6 @@ const useStyles = makeStyles({
     marginLeft: "30%",
   },
 });
-// {matches ? 3 : 4}
 export default function Responsivity({ ...data }) {
   const classes = useStyles();
   const { setBefore, setAfter } = useContext(PaginationContext);
@@ -38,13 +37,11 @@ export default function Responsivity({ ...data }) {
     e.preventDefault();
     setBefore("");
     setAfter(data.items.allVideos.cursor.after);
-    console.log(after);
   };
   const handlePrevious = (e) => {
     e.preventDefault();
     setAfter("");
     setBefore(data.items.allVideos.cursor.before);
-    console.log(before);
   };
   return (
     <>
