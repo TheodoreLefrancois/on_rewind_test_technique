@@ -1,63 +1,54 @@
 import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-// import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useContext } from "react";
 import PaginationContext from "../PaginationContext";
+// import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 import CardSchema from "./CardSchema";
 // import CardSchemaMobile from "./CardSchemaMobile";
 
 // {matches ? 3 : 4}
-export default function Responsivity(items, handleNext, handlePrevious) {
+export default function Responsivity({ ...data }) {
+  const { setBefore, setAfter } = useContext(PaginationContext);
   // const matches = useMediaQuery("(min-width:900px)");
-  const { after, before } = useContext(PaginationContext);
-  console.log(items);
+  const { after, before } = data.items.allVideos.cursor;
+  const handleNext = (e) => {
+    e.preventDefault();
+    setBefore("");
+    setAfter(data.items.allVideos.cursor.after);
+    console.log(after);
+  };
+  const handlePrevious = (e) => {
+    e.preventDefault();
+    setAfter("");
+    setBefore(data.items.allVideos.cursor.before);
+    console.log(before);
+  };
   return (
-    <Grid container spacing={3} justify="center">
-      {items.map((x, i) => {
-        return (
-          <>
-            {i === 2 ? (
-              <>
-                <CardSchema
-                  name={x.name}
-                  poster={x.poster}
-                  Tags={x.Tags}
-                  id={x.id}
-                  key={x.id}
-                />
-                {before && (
-                  <Button xs={2} onClick={handlePrevious}>
-                    Previous
-                  </Button>
-                )}
-              </>
-            ) : i === 4 ? (
-              <CardSchema
-                name={x.name}
-                poster={x.poster}
-                Tags={x.Tags}
-                id={x.id}
-                key={x.id}
-              />
-            ) : (
-              <>
-                <CardSchema
-                  name={x.name}
-                  poster={x.poster}
-                  Tags={x.Tags}
-                  id={x.id}
-                  key={x.id}
-                />
-                {after && (
-                  <Button xs={2} onClick={handleNext}>
-                    Previous
-                  </Button>
-                )}
-              </>
-            )}
-          </>
-        );
-      })}
-    </Grid>
+    <>
+      <Grid container spacing={3} justify="center">
+        {data.items.allVideos.items.map((x) => {
+          return (
+            <CardSchema
+              name={x.name}
+              poster={x.poster}
+              Tags={x.Tags}
+              id={x.id}
+              key={x.id}
+            />
+          );
+        })}
+      </Grid>
+      {before && (
+        <Grid item xs={2}>
+          <Button onClick={handlePrevious}>Previous</Button>
+        </Grid>
+      )}
+      {after && (
+        <Grid item xs={2}>
+          <Button onClick={handleNext}>Next</Button>
+        </Grid>
+      )}
+    </>
   );
 }

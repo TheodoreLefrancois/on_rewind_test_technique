@@ -3,9 +3,9 @@ import PaginationContext from "../PaginationContext";
 import { useContext } from "react";
 import Responsivity from "./Responsivity";
 const Home = () => {
-  const { after, setAfter, before, setBefore } = useContext(PaginationContext);
+  const { after, before } = useContext(PaginationContext);
 
-  const { data, error, loading } = useQuery(gql`
+  const { loading, data, error } = useQuery(gql`
     query {
       allVideos(limit: 5, before: "${before}", after:"${after}") {
         items {
@@ -23,27 +23,13 @@ const Home = () => {
       }
     }
   `);
-  const handleNext = (e) => {
-    e.preventDefault();
-    setBefore(null);
-    setAfter(data.allVideo.cursor.after);
-  };
-  const handlePrevious = (e) => {
-    e.preventDefault();
-    setAfter(null);
-    setBefore(data.allVideo.cursor.before);
-  };
 
   return (
     <>
       {loading ? (
         <p>Loading...</p>
       ) : data ? (
-        <Responsivity
-          items={[...data.allVideos.items]}
-          handleNext={handleNext}
-          handlePrevious={handlePrevious}
-        />
+        <Responsivity items={{ ...data }} />
       ) : (
         <p>Error :( {error.message}</p>
       )}
