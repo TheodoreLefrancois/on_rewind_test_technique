@@ -150,7 +150,7 @@ export default function Responsivity({ ...data }) {
               );
             })}
           </Grid>
-          <Grid className={classes.buttonGridMobile} justify="center">
+          <Grid container className={classes.buttonGridMobile} justify="center">
             {before && (
               <Grid item xs={4}>
                 <Button
