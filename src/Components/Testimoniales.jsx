@@ -1,9 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
-import Card from "./Card";
+import { useContext } from "react";
+import PaginationContext from "../PaginationContext";
+import Responsivity from "./Responsivity";
 export default function Testimoniales() {
-  const { loading, error, data } = useQuery(gql`
+  const { after, before } = useContext(PaginationContext);
+  const { loading, data, error } = useQuery(gql`
     query {
-      allVideos(limit: 5, tags: "Testimoniales") {
+      allVideos(limit: 5, tags:"Testimoniales", before: "${before}", after:"${after}") {
         items {
           id
           poster
@@ -11,6 +14,10 @@ export default function Testimoniales() {
           Tags {
             name
           }
+        }
+        cursor {
+          before
+          after
         }
       }
     }
@@ -21,19 +28,9 @@ export default function Testimoniales() {
       {loading ? (
         <p>Loading...</p>
       ) : data ? (
-        data.allVideos.items.map((x) => {
-          return (
-            <Card
-              name={x.name}
-              poster={x.poster}
-              Tags={x.Tags}
-              id={x.id}
-              key={x.id}
-            />
-          );
-        })
+        <Responsivity items={{ ...data }} />
       ) : (
-        <p>Error :( {error.stringify}</p>
+        <p>Error :( {error.message}</p>
       )}
     </>
   );

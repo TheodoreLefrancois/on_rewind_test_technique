@@ -10,7 +10,9 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import PaginationContext from "./PaginationContext";
 import DetailPage from "./Components/DetailPage";
+import { useState } from "react";
 
 function MyRouter() {
   const httpLink = createHttpLink({
@@ -29,28 +31,42 @@ function MyRouter() {
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
+  const [after, setAfter] = useState("");
+  const [before, setBefore] = useState("");
+  const [datas, setDatas] = useState({});
 
   return (
     <Router>
-      <ApolloProvider client={client}>
-        <div>
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/funzone">
-              <Funzone />
-            </Route>
-            <Route exact path="/testimoniales">
-              <Testimonials />
-            </Route>
-            <Route exact path="/video/:goodId">
-              <DetailPage />
-            </Route>
-          </Switch>
-        </div>
-      </ApolloProvider>
+      <PaginationContext.Provider
+        value={{
+          after,
+          setAfter,
+          before,
+          setBefore,
+          datas,
+          setDatas,
+        }}
+      >
+        <ApolloProvider client={client}>
+          <div>
+            <Header />
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/funzone">
+                <Funzone />
+              </Route>
+              <Route exact path="/testimoniales">
+                <Testimonials />
+              </Route>
+              <Route exact path="/video/:goodId">
+                <DetailPage />
+              </Route>
+            </Switch>
+          </div>
+        </ApolloProvider>
+      </PaginationContext.Provider>
     </Router>
   );
 }
