@@ -55,11 +55,11 @@ export default function Responsivity({ ...data }) {
                     {index === 2 ? (
                       <>
                         <CardSchema
+                          key={x.name}
                           name={x.name}
                           poster={x.poster}
                           Tags={x.Tags}
                           id={x.id}
-                          key={x.id}
                         />
                         {before && (
                           <Grid item xs={2}>
@@ -78,11 +78,11 @@ export default function Responsivity({ ...data }) {
                     ) : index === 4 ? (
                       <>
                         <CardSchema
+                          key={x.name}
                           name={x.name}
                           poster={x.poster}
                           Tags={x.Tags}
                           id={x.id}
-                          key={x.id}
                         />
                         {after && (
                           <Grid item xs={2}>
@@ -100,11 +100,11 @@ export default function Responsivity({ ...data }) {
                       </>
                     ) : (
                       <CardSchema
+                        key={x.name}
                         name={x.name}
                         poster={x.poster}
                         Tags={x.Tags}
                         id={x.id}
-                        key={x.id}
                       />
                     )}
                   </>
@@ -116,11 +116,11 @@ export default function Responsivity({ ...data }) {
               {data.items.allVideos.items.map((x) => {
                 return (
                   <CardSchema
+                    key={x.name}
                     name={x.name}
                     poster={x.poster}
                     Tags={x.Tags}
                     id={x.id}
-                    key={x.id}
                   />
                 );
               })}
@@ -141,11 +141,11 @@ export default function Responsivity({ ...data }) {
             {data.items.allVideos.items.map((x) => {
               return (
                 <CardSchemaMobile
+                  key={x.name}
                   name={x.name}
                   poster={x.poster}
                   Tags={x.Tags}
                   id={x.id}
-                  key={x.id}
                 />
               );
             })}
@@ -154,6 +154,7 @@ export default function Responsivity({ ...data }) {
             {before && (
               <Grid item xs={4}>
                 <Button
+                  key="previous"
                   className={classes.buttonStyle}
                   onClick={handlePrevious}
                 >
@@ -163,7 +164,11 @@ export default function Responsivity({ ...data }) {
             )}
             {after && (
               <Grid item xs={4}>
-                <Button className={classes.buttonStyle} onClick={handleNext}>
+                <Button
+                  key="next"
+                  className={classes.buttonStyle}
+                  onClick={handleNext}
+                >
                   <ArrowForwardIosIcon color="primary" />
                 </Button>
               </Grid>

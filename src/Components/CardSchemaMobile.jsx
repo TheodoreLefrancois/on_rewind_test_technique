@@ -34,7 +34,7 @@ export default function CardSchemaMobile({ poster, name, Tags, id }) {
   const classes = useStyles();
   const goodId = id;
   return (
-    <Grid item xs={11}>
+    <Grid key={name} item xs={11}>
       <Card className={classes.littleMediaRoot}>
         <CardActionArea>
           <Link to={`/video/${goodId}`}>
@@ -48,13 +48,15 @@ export default function CardSchemaMobile({ poster, name, Tags, id }) {
           </Link>
           <CardContent>
             <Typography className={classes.name}>{name}</Typography>
-            <List className={classes.tagsRow}>
-              {Tags.map((y) => (
-                <ListItemText className={classes.tagsItem}>
-                  # {y.name.toUpperCase()}
-                </ListItemText>
-              ))}
-            </List>
+            {Tags && (
+              <List className={classes.tagsRow}>
+                {Tags.map((y) => (
+                  <ListItemText key={y.name} className={classes.tagsItem}>
+                    # {y.name.toUpperCase()}
+                  </ListItemText>
+                ))}
+              </List>
+            )}
           </CardContent>
         </CardActionArea>
       </Card>

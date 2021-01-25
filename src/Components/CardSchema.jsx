@@ -36,7 +36,7 @@ export default function CardSchema({ poster, name, Tags, id }) {
   const classes = useStyles();
   const goodId = id;
   return (
-    <Grid item xs={4}>
+    <Grid key={name} item xs={4}>
       <Card className={classes.root}>
         <CardActionArea>
           <Link to={`/video/${goodId}`}>
@@ -50,13 +50,15 @@ export default function CardSchema({ poster, name, Tags, id }) {
           </Link>
           <CardContent>
             <Typography className={classes.name}>{name}</Typography>
-            <List className={classes.tagsRow}>
-              {Tags.map((y) => (
-                <ListItemText className={classes.tagsItem}>
-                  # {y.name.toUpperCase()}
-                </ListItemText>
-              ))}
-            </List>
+            {Tags && (
+              <List className={classes.tagsRow}>
+                {Tags.map((y) => (
+                  <ListItemText key={y.name} className={classes.tagsItem}>
+                    # {y.name.toUpperCase()}
+                  </ListItemText>
+                ))}
+              </List>
+            )}
           </CardContent>
         </CardActionArea>
       </Card>
